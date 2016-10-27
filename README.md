@@ -1,7 +1,5 @@
 # ODE model for P. tricornutum associated microbial community
 
-Copyright (C) 2016 Antonella Succurro
-
 Pre-print doi: [http://dx.doi.org/10.1101/077768](http://dx.doi.org/10.1101/077768)
 
 

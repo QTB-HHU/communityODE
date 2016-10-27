@@ -1,3 +1,12 @@
+The material available at https://github.com/QTB-HHU/communityODE
+
+<p align="center">
+Copyright (C) 2016 Antonella Succurro
+</p>
+
+is distributed through:
+
+
 ### GNU GENERAL PUBLIC LICENSE
 
 Version 3, 29 June 2007
