@@ -1,8 +1,25 @@
-## ODE model for P. tricornutum associated microbial community
+# ODE model for P. tricornutum associated microbial community
 
-Please refer to the project wiki for more info
 
-### Installation
+## Content
+
+This model defines a Ordinary Differential Equations system to describe the dynamic
+evolution of an ecosystem of five organisms (one diatom and four bacteria). Also provided is
+a genetic algorithm code used to define the model parameters.
+
+The code is made available under the GNU General Public License (see LICENSE) at no warranty.
+
+Macros to run are available in:
+
+```bash
+macros/examples/
+macros/diatom-comm/
+```
+
+Code documentation is available at:
+
+
+## Installation
 
 This code requires some external open-source packages.
 
