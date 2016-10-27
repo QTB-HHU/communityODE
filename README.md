@@ -16,7 +16,7 @@ macros/examples/
 macros/diatom-comm/
 ```
 
-[//]: # Code documentation is available in:
+[//]: # (Code documentation is available in:)
 
 
 ## Installation
