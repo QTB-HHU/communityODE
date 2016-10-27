@@ -11,7 +11,8 @@ source ../../code/python/bin/activate
 	# -c: with pseudomonas
 	# -i: terminate simulation after 3000 integration steps
 	# -l: terminate simulation at time 300
-python communityODESys.py -j complete-media-parset.json -f -d -b -e -a -c -i 3000 -l 300
-python communityODESys.py -j minimal-media-parset.json  -m -d -b -e -a -c -i 3000 -l 300
+	# -P: plot paper Figure 5
+python communityODESys.py -j complete-media-parset.json -f -d -b -e -a -c -i 3000 -l 300 -P
+python communityODESys.py -j minimal-media-parset.json  -m -d -b -e -a -c -i 3000 -l 300 -P
 # Exit virtual environment
 deactivate
