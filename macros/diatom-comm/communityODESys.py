@@ -3,30 +3,26 @@
 #**  email:a.succurro[AT]gmail.com **
 #**                                **
 #**  created:     2016/06/01       **
-#**  last modified: 2016/08/18     **
+#**  last modified: 2016/10/27     **
 #************************************
 
 import sys
 sys.path.append('../../code/python/')
-#sys.path.append('/home/antonella/traballo/pythonscripts/plottingAndTabbing/')
-
-import classSimpleODE as sode
 import numpy as np
 import matplotlib.pyplot as plt
 import optparse
 import subprocess, os
 import json
 import os.path
-
-from objectivesAndRanges import *
-from mycolors import *
-
 import matplotlib as mpl
 mpl.rcParams['legend.numpoints'] = 1
 
+import classSimpleODE as sode
+from objectivesAndRanges import *
+from mycolors import *
+
 orgkeys = ['DIATOM', 'PSEUDOALTERO', 'FLAVO', 'ALTEROMO', 'PSEUDOMO']
 orgkeysshort = {'DIATOM':'D', 'PSEUDOALTERO':'PA', 'FLAVO':'F', 'ALTEROMO':'A', 'PSEUDOMO':'P'}
-
 
 def main():
     '''
