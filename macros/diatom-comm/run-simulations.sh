@@ -1,8 +1,9 @@
 # Enter virtual environment
 source ../../code/python/bin/activate
 # Run community:
-	# -j: with complete-media.json parameters
+	# -j: with complete or minimal media parameters
 	# -f: in complete media 
+	# -m: in minimal media 
 	# -d: with diatom
 	# -b: with pseudoalteromonas
 	# -e: with flavobacteria
@@ -10,6 +11,7 @@ source ../../code/python/bin/activate
 	# -c: with pseudomonas
 	# -i: terminate simulation after 3000 integration steps
 	# -l: terminate simulation at time 300
-python communityODESys.py -j complete-media.json  -f -d -b -e -a -c -i 3000 -l 300
+python communityODESys.py -j complete-media-parset.json -f -d -b -e -a -c -i 3000 -l 300
+python communityODESys.py -j minimal-media-parset.json  -m -d -b -e -a -c -i 3000 -l 300
 # Exit virtual environment
 deactivate
