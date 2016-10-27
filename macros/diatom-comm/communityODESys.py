@@ -82,7 +82,7 @@ def getOfileName(diatom, pseudoaltero, altero, flavo, pseudo):
     '''
     If the output path is not specified, creates one according to the organisms in the ODE system
     '''
-    dirname = '../../outputs/diatom-comm/sim'
+    dirname = './output'
     if diatom:
         dirname = dirname+'-Diatom'
     if pseudoaltero:
