@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 import optparse
 import subprocess, os
 import json
+import time
 tableau20 = [(31, 119, 180), (174, 199, 232), (255, 127, 14), (255, 187, 120),    
              (44, 160, 44), (152, 223, 138), (214, 39, 40), (255, 152, 150),    
              (148, 103, 189), (197, 176, 213), (140, 86, 75), (196, 156, 148),    
@@ -125,4 +126,10 @@ def options():
 
 
 if __name__=="__main__":
+    inittime = time.time()
     main()
+    elapsedtime = time.time() - inittime
+    h = divmod(elapsedtime,3600)  # hours
+    m = divmod(h[1],60)  # minutes
+    s = m[1]  # seconds
+    print "Elapsed time: %d hours, %d minutes, %f seconds" % (h[0],m[0],s)
