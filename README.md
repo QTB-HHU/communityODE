@@ -36,13 +36,13 @@ pip install virtualenv
 Generate a virtual environment for python2 or python3 like:
 
 ```bash
-virtualenv -p /yourlocalpathto/pythonX yourprojectfolder
+virtualenv -p /yourlocalpathto/pythonX yourprojectfolder/venv
 ```
 
 e.g.
 
 ```bash
-virtualenv -p /usr/bin/python2.7 $HOME/diatom-comm/code/python
+virtualenv -p /usr/bin/python2.7 $HOME/diatom-comm/venv
 ```
 
 
@@ -50,8 +50,8 @@ Then activate virtualenv and install the requirements:
 
 ```bash
 cd yourprojectfolder
-source bin/activate
-pip install -r requirements.txt
+source venv/bin/activate
+pip install -r code/python/requirements.txt
 ```
 
 You are ready to run! When done, leave the virtualenv like:
