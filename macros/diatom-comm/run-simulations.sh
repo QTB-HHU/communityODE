@@ -1,5 +1,5 @@
 # Enter virtual environment
-source ../../code/python/bin/activate
+source ../../venv/bin/activate
 # Run community:
 	# -j: with complete or minimal media parameters
 	# -f: in complete media 
