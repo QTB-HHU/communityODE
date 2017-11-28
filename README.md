@@ -59,10 +59,3 @@ You are ready to run! When done, leave the virtualenv like:
 ```bash
 deactivate
 ```
-
-N.B. when freshly creating virtualenv on fedora, installing via requirements all at once does not work... this worked:
-pip install numpy
-pip install numexpr bottleneck
-pip install six cycler
-pip install pytz
-pip install -r requirements.txt

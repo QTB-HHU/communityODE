@@ -61,7 +61,8 @@ def main():
         dbm = dbm_mm
 
     if opts.paperfig:
-        plotFigure5(odesys, opts.fullmedia, int(opts.ltime), ('%s-%s' % (ofile, psets[0])), jsondicts[0])
+        plotFigure5(odesys, opts.fullmedia, int(opts.ltime), ('%s-%s' % (ofile, psets[0])), opts.otitle)
+        plotFigureMetabolites(odesys, opts.fullmedia, int(opts.ltime), ('%s-%s' % (ofile, psets[0])), opts.otitle)
         return
 
         
@@ -143,6 +144,8 @@ def buildODESys(jsondicts, runfullmedia, runminimalmedia, rundiatom, runpseudoal
         y0[ykeys.index('VIT')] = 1.
         y0[ykeys.index('FE')] = 1.
         y0[ykeys.index('DIATOM')] = 0.04
+    #y0[ykeys.index('FE')] = 10.
+    #y0[ykeys.index('VIT')] = 10.
     gammad = '(self.p["k_diatom_growth"]*(VIT/(VIT+self.p["k_diatom_K_vit"]))*(FE/(FE+self.p["k_diatom_K_fe3"]))*(1 - DIATOM/self.p["k_diatom_cc"]))'
     deltad = 'self.p["k_diatom_death"]*1/(1 + '+gammad+')'
     fd = gammad+'*DIATOM - '+deltad+'*DIATOM'
@@ -198,6 +201,10 @@ def buildODESys(jsondicts, runfullmedia, runminimalmedia, rundiatom, runpseudoal
     else:
         y0[ykeys.index('PSEUDOMO')] = 0.
 
+    if not rundiatom:
+        y0[ykeys.index('DIATOM')] = 0.
+                
+
     if verbose:
         functions = {'DIATOM':fd, 'VIT':fv, 'FE':ff, 'PSEUDOALTERO': fpa, 'FLAVO': ffl, 'ALTEROMO': fa, 'PSEUDOMO': fp, 'DOCA':fdoca, 'DOCPA':fdocpa, 'COP':fc, 'EPA':fe, 'BAC':fb, 'DOMA': fdoma}
         for k,v in functions.items():
@@ -228,12 +235,13 @@ def plotFigure5(odesys, fm, ltime, oname, otitle):
     Plot Biomasses over time (top panel) and bacteria relative abundances over time (bottom panel)
     '''
     fig5, (ax5a, ax5b) = plt.subplots(2, sharex=True)
-    otitle = 'Community dynamics in '
+    figtitle = 'Community dynamics in '
     if fm:
-        otitle = otitle+'Complete Media'
+        figtitle = figtitle+'Complete Media'
     else:
-        otitle = otitle+'Minimal Media'
-    ax5a.set_title(otitle)
+        figtitle = figtitle+'Minimal Media'
+    figtitle = figtitle+otitle
+    ax5a.set_title(figtitle)
     ax5aa = ax5b.twinx()
     ax5b.set_xlabel('Time [a.u.]')
     ax5a.set_ylabel('Biomass [a.u.]')
@@ -269,6 +277,52 @@ def plotFigure5(odesys, fm, ltime, oname, otitle):
         f1.axvspan(endofstat, ltime, alpha=0.1, color='yellow')
     l5 = ax5aa.legend(loc='best', prop={'size':10}, scatterpoints=1)
     fig5.savefig('%s-fig5-%s.png'%(oname,mstr))
+    return
+
+def plotFigureMetabolites(odesys, fm, ltime, oname, otitle):
+    '''
+    Plot Metabolites over Time
+    '''
+    fig5, (ax5a, ax5b, ax5c) = plt.subplots(3, sharex=True)
+    figtitle = 'Metabolite dynamics in '
+    if fm:
+        figtitle = figtitle+'Complete Media'
+    else:
+        figtitle = figtitle+'Minimal Media'
+    figtitle = figtitle+otitle
+    ax5a.set_title(figtitle)
+    ax5c.set_xlabel('Time [a.u.]')
+    ax5c.set_xlim([0, ltime])
+    ax5a.set_ylabel('Micronutrients [a.u.]')
+    ax5b.set_ylabel('Bactericides [a.u.]')
+    ax5c.set_ylabel('Nutrients [a.u.]')
+    timex = np.array(odesys.T)
+
+    c = 0
+    for k in ['VIT', 'FE']:
+        ax5a.plot(timex, odesys.Y[k], '-', color=colors_rgb[c], label=k.lower())
+        c +=1
+    for k in ['EPA', 'BAC']:
+        ax5b.plot(timex, odesys.Y[k], '-', color=colors_rgb[c], label=k.lower())
+        c +=1
+    for k in ['DOCA', 'DOCPA', 'COP', 'DOMA']:
+        ax5c.plot(timex, odesys.Y[k], '-', color=colors_rgb[c], label=k.lower().replace('doma', 'dom'))
+        c +=1
+
+    l5a = ax5a.legend(loc='best', prop={'size':10}, scatterpoints=1)
+    l5b = ax5b.legend(loc='best', prop={'size':10}, scatterpoints=1)
+    l5c = ax5c.legend(loc='best', prop={'size':10}, scatterpoints=1)
+    for f1 in [ax5a, ax5b, ax5c]:
+        f1.axvspan(0, 40, alpha=0.08, color='green')
+        f1.axvspan(40, 72, alpha=0.08, color='blue')
+        endofstat = 152
+        mstr = 'mm'
+        if fm:
+            endofstat = 128
+            mstr = 'fm'
+        f1.axvspan(72, endofstat, alpha=0.06, color='red')
+        f1.axvspan(endofstat, ltime, alpha=0.1, color='yellow')
+    fig5.savefig('%s-metabolites-%s.png'%(oname,mstr))
     return
 
 def plotBiomassAndAbundances(odesys, fm, ltime, oname, otitle):
